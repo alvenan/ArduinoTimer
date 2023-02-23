@@ -4,7 +4,6 @@
 
 bool timerState = false;
 uint32_t task_time = 0;
-uint64_t i = 0;
 
 void pin_ISR() {
   if(!timerState) {
