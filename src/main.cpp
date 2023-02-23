@@ -2,7 +2,7 @@
 
 #define INPUT_PIN 3
 
-volatile bool timerState = false;
+bool timerState = false;
 uint32_t task_time = 0;
 uint64_t i = 0;
 
