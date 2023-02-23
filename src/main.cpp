@@ -2,8 +2,6 @@
 
 #define INPUT_PIN 3
 
-using namespace std;
-
 volatile uint8_t timerState = LOW;
 uint32_t task_time = 0;
 uint64_t i = 0;
