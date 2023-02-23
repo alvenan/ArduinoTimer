@@ -2,7 +2,7 @@
 
 #define INPUT_PIN 3
 
-volatile uint8_t timerState = LOW;
+volatile bool timerState = false;
 uint32_t task_time = 0;
 uint64_t i = 0;
 
@@ -10,13 +10,13 @@ void pin_ISR() {
   if(!timerState) {
     task_time = millis();
     Serial.println("Start Timer.");
-    timerState = HIGH;
+    timerState = true;
   } else {
     task_time = millis() - task_time;
     Serial.print("Stop Timer in ");
     Serial.print(task_time);
     Serial.println("ms.");
-    timerState = LOW;
+    timerState = false;
   }
 }
 
