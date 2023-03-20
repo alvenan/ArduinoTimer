@@ -19,21 +19,22 @@ void pin_ISR() {
   }
 }
 
-void setup() {
+int main(){
   Serial.begin(9600);
   pinMode(INPUT_PIN, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
   attachInterrupt(digitalPinToInterrupt(INPUT_PIN), pin_ISR, RISING);
   digitalWrite(LED_BUILTIN, LOW);
-}
 
-void loop() {
-  if(timerState)
-    digitalWrite(LED_BUILTIN, HIGH);
-  else {
-    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-    delay(200);
+  while(1){
+    if(timerState)
+      digitalWrite(LED_BUILTIN, HIGH);
+    else {
+      digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+      delay(200);
+    }
   }
 
+  return 0;
 }
