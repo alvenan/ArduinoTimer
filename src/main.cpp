@@ -48,16 +48,14 @@ void loop() {
             time_value = millis() - time_value - COMM_OFFSET;
             break;
           }
-        if(i==0)
-          Serial.println("s");
-        else
-          Serial.println(time_value);
+        if(i!=0)
+          Serial.println(String(i) + ", " + String(time_value));
+          // first pulse is to check operation
 
         digitalWrite(INIT_TEST, LOW);
         digitalWrite(LED_BUILTIN, LOW);
         delay(200);
     }
-    Serial.println("e");
     isTesting = false;
   } else {
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
