@@ -39,14 +39,17 @@ void loop() {
     for(int i=0; i<=N_TESTS; i++){
         digitalWrite(LED_BUILTIN, HIGH);
         digitalWrite(INIT_TEST, HIGH);
-        time_value = millis();
         isTimerRunning = true;
+        time_value = millis();
 
-        while (isTimerRunning);
+        while (true)
+          if(!isTimerRunning){
+            time_value = millis() - time_value;
+            break;
+          }
 
-        time_value = millis() - time_value;
         Serial.println(time_value);
-        
+
         digitalWrite(INIT_TEST, LOW);
         digitalWrite(LED_BUILTIN, LOW);
         delay(200);
