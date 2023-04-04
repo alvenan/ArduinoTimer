@@ -41,14 +41,14 @@ void loop() {
         digitalWrite(INIT_TEST, HIGH);
         time_value = millis();
         isTimerRunning = true;
-        delay(200);
-        digitalWrite(INIT_TEST, LOW);
-        digitalWrite(LED_BUILTIN, LOW);
 
         while (isTimerRunning);
 
         time_value = millis() - time_value;
         Serial.println(time_value);
+        
+        digitalWrite(INIT_TEST, LOW);
+        digitalWrite(LED_BUILTIN, LOW);
         delay(200);
     }
     isTesting = false;
