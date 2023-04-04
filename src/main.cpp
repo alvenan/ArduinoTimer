@@ -4,6 +4,7 @@
 #define INIT_TEST 4 // gpio21
 #define FINISH_TIMER 2 // gpio 20
 
+#define TIME_OFFSET 160
 #define N_TESTS 5
 
 volatile bool isTesting = false;
@@ -44,7 +45,7 @@ void loop() {
 
         while (true)
           if(!isTimerRunning){
-            time_value = millis() - time_value;
+            time_value = millis() - time_value - TIME_OFFSET;
             break;
           }
         if(i==0)
