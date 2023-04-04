@@ -1,40 +1,58 @@
 #include <Arduino.h>
 
-#define INPUT_PIN 3
+#define START_BTN 3 
+#define INIT_TEST 4 // gpio21
+#define FINISH_TIMER 2 // gpio 20
 
-bool timerState = false;
-uint32_t task_time = 0;
+#define N_TESTS 5
 
-void pin_ISR() {
-  if(!timerState) {
-    task_time = millis();
-    Serial.println("Start Timer.");
-    timerState = true;
-  } else {
-    task_time = millis() - task_time;
-    Serial.print("Stop Timer in ");
-    Serial.print(task_time);
-    Serial.println("ms.");
-    timerState = false;
-  }
+bool isTesting = false;
+bool isTimerRunning= false;
+
+int time_value = 0;
+
+void startBtnPressed() {
+  isTesting = true;
 }
 
-int main(){
+void finishTimer() {
+  isTimerRunning = false;
+}
+
+void setup() {
   Serial.begin(9600);
-  pinMode(INPUT_PIN, INPUT);
+
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(START_BTN, INPUT);
+  pinMode(INIT_TEST, OUTPUT);
+  pinMode(FINISH_TIMER, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(INPUT_PIN), pin_ISR, RISING);
-  digitalWrite(LED_BUILTIN, LOW);
+  attachInterrupt(digitalPinToInterrupt(START_BTN), startBtnPressed, RISING);
+  attachInterrupt(digitalPinToInterrupt(FINISH_TIMER), finishTimer, RISING);
 
-  while(1){
-    if(timerState)
-      digitalWrite(LED_BUILTIN, HIGH);
-    else {
-      digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-      delay(200);
+  digitalWrite(INIT_TEST, LOW);
+}
+
+void loop() {
+  if(isTesting) {
+    for(int i=0; i<N_TESTS; i++){
+        digitalWrite(LED_BUILTIN, HIGH);
+        digitalWrite(INIT_TEST, HIGH);
+        time_value = millis();
+        delay(200);
+        digitalWrite(INIT_TEST, LOW);
+        digitalWrite(LED_BUILTIN, LOW);
+        isTimerRunning = true;
+        while (isTimerRunning){
+          Serial.print("");
+        }
+        time_value = millis() - time_value;
+        Serial.println(time_value);
+        delay(200);
     }
+    isTesting = false;
+  } else {
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    delay(1000);
   }
-
-  return 0;
 }
