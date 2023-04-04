@@ -6,8 +6,8 @@
 
 #define N_TESTS 5
 
-bool isTesting = false;
-bool isTimerRunning= false;
+volatile bool isTesting = false;
+volatile bool isTimerRunning= false;
 
 int time_value = 0;
 
@@ -31,21 +31,22 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(FINISH_TIMER), finishTimer, RISING);
 
   digitalWrite(INIT_TEST, LOW);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void loop() {
   if(isTesting) {
-    for(int i=0; i<N_TESTS; i++){
+    for(int i=0; i<=N_TESTS; i++){
         digitalWrite(LED_BUILTIN, HIGH);
         digitalWrite(INIT_TEST, HIGH);
         time_value = millis();
+        isTimerRunning = true;
         delay(200);
         digitalWrite(INIT_TEST, LOW);
         digitalWrite(LED_BUILTIN, LOW);
-        isTimerRunning = true;
-        while (isTimerRunning){
-          Serial.print("");
-        }
+
+        while (isTimerRunning);
+
         time_value = millis() - time_value;
         Serial.println(time_value);
         delay(200);
