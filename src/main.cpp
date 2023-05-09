@@ -1,10 +1,10 @@
 #include <Arduino.h>
 
 #define START_BTN 3 
-#define INIT_TEST 4 // gpio21
-#define FINISH_TIMER 2 // gpio 20
+#define INIT_TEST 4 // gpio20
+#define FINI_TIMER 2 // gpio21
 
-#define COMM_OFFSET 160
+#define COMM_OFFSET 18
 #define N_TESTS 5
 
 volatile bool isTesting = false;
@@ -26,10 +26,10 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(START_BTN, INPUT);
   pinMode(INIT_TEST, OUTPUT);
-  pinMode(FINISH_TIMER, INPUT);
+  pinMode(FINI_TIMER, INPUT);
 
   attachInterrupt(digitalPinToInterrupt(START_BTN), startBtnPressed, RISING);
-  attachInterrupt(digitalPinToInterrupt(FINISH_TIMER), finishTimer, RISING);
+  attachInterrupt(digitalPinToInterrupt(FINI_TIMER), finishTimer, RISING);
 
   digitalWrite(INIT_TEST, LOW);
   digitalWrite(LED_BUILTIN, LOW);
@@ -43,6 +43,10 @@ void loop() {
         isTimerRunning = true;
         time_value = millis();
 
+        if(i==0)
+          // first pulse is to check operation
+          Serial.println("Configurando Timer");
+
         while (true)
           if(!isTimerRunning){
             time_value = millis() - time_value - COMM_OFFSET;
@@ -50,7 +54,6 @@ void loop() {
           }
         if(i!=0)
           Serial.println(String(i) + ", " + String(time_value));
-          // first pulse is to check operation
 
         digitalWrite(INIT_TEST, LOW);
         digitalWrite(LED_BUILTIN, LOW);
