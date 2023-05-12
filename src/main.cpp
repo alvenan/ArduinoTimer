@@ -43,17 +43,13 @@ void loop() {
         isTimerRunning = true;
         time_value = millis();
 
-        if(i==0)
-          // first pulse is to check operation
-          Serial.println("Configurando Timer");
-
         while (true)
           if(!isTimerRunning){
             time_value = millis() - time_value - COMM_OFFSET;
             break;
           }
-        if(i!=0)
-          Serial.println(String(i) + ", " + String(time_value));
+          
+        Serial.println(String(i) + ", " + String(time_value));
 
         digitalWrite(INIT_TEST, LOW);
         digitalWrite(LED_BUILTIN, LOW);
