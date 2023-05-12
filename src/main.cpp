@@ -4,7 +4,7 @@
 #define INIT_TEST 4 // gpio20
 #define FINI_TIMER 2 // gpio21
 
-#define COMM_OFFSET 18
+#define COMM_OFFSET 0
 #define N_TESTS 5
 
 volatile bool isTesting = false;
@@ -62,6 +62,9 @@ void loop() {
     isTesting = false;
   } else {
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    if(Serial.available())
+      if(Serial.read() == 's')
+        isTesting = true;
     delay(1000);
   }
 }
