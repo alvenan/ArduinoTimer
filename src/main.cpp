@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
-#define INIT_TEST 4 // gpio20
-#define FINI_TIMER 2 // gpio21
+#define TIMER_READY 4 // gpio20
+#define TRIGGER 2 // gpio21
 
 volatile bool isTimerRunning = false;
 
@@ -16,25 +16,25 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(INIT_TEST, OUTPUT);
-  pinMode(FINI_TIMER, INPUT);
+  pinMode(TIMER_READY, OUTPUT);
+  pinMode(TRIGGER, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(FINI_TIMER), finishTimer, RISING);
+  attachInterrupt(digitalPinToInterrupt(TRIGGER), finishTimer, RISING);
 
-  digitalWrite(INIT_TEST, LOW);
+  digitalWrite(TIMER_READY, LOW);
   digitalWrite(LED_BUILTIN, LOW);
 }
 
 void loop() {
   digitalWrite(LED_BUILTIN, LOW);
-  digitalWrite(INIT_TEST, HIGH);
+  digitalWrite(TIMER_READY, HIGH);
   if(count==0)
     Serial.println("Timer set and waiting to begin. ");
 
   while (!isTimerRunning); // 1st trigger
   time_value = micros();
 
-  digitalWrite(INIT_TEST, LOW);
+  digitalWrite(TIMER_READY, LOW);
   digitalWrite(LED_BUILTIN, HIGH);
 
   while(isTimerRunning);  // 2nd trigger
