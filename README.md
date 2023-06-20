@@ -16,7 +16,7 @@ This repository provides instructions on how to utilize the timer functionality 
    - 1st trigger: Initiates the counting process.
    - 2nd trigger: Stops the counting and sends the result through the Serial communication.
 
-3. Circuit:
+3. Example Circuit:
 <img src="/img/timer_example.png" width="200">
 
 4. Serial Output:
