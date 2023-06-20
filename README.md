@@ -1,19 +1,17 @@
 # Arduino Timer
-### This is a firmware code made for Arduino Nano to count time according to the triggers as a real timer.
+### This firmware code is designed for Arduino Nano to function as a timer, accurately counting time based on triggers.
 <img src="/img/timer.jpeg" width="200">
 
-## How to use
+## How to Use
 
-There are 2 GPIO pins to use:
+This repository provides instructions on how to utilize the timer functionality using the following GPIO pins:
 
-GPIO4 -> Is an output source that indicates if the timer is ready to start.
+1. GPIO4: This pin serves as an output source indicating the readiness of the timer.
 
-[0] -> Turned off or counting
+   - [0]: Indicates that the timer is turned off or currently counting.
+   - [1]: Indicates that the timer is ready to start counting.
 
-[1] -> Ready to start counting
+2. GPIO2: This pin acts as the trigger.
 
-GPIO2 -> Is the trigger
-
-1st trigger -> Start counting
-
-2nd trigger -> Stop counting and send the result through Serial
+   - 1st trigger: Initiates the counting process.
+   - 2nd trigger: Stops the counting and sends the result through the Serial communication.
