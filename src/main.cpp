@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#define DEBUG
+
 #define TIMER_READY 4 // gpio20
 #define TRIGGER 2 // gpio21
 
@@ -31,7 +33,7 @@ void loop() {
   if(count==0)
     Serial.println("Timer set and waiting to begin. ");
 
-  while (!isTimerRunning); // 1st trigger
+  while (!isTimerRunning) // 1st trigger
   time_value = micros();
 
   digitalWrite(TIMER_READY, LOW);
