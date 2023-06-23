@@ -11,7 +11,10 @@ This repository provides instructions on how to utilize the timer functionality 
    - [0]: Indicates that the timer is turned off or currently counting.
    - [1]: Indicates that the timer is ready to start counting.
 
+
 2. GPIO2: This pin acts as the trigger.
 
    - 1st trigger: Initiates the counting process.
    - 2nd trigger: Stops the counting and sends the result through the Serial communication.
+
+3. GPIO3: This pin resets the test count.
