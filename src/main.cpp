@@ -9,7 +9,7 @@
 volatile bool isTimerRunning = false;
 
 int count = 0;
-long int time_value = 0;
+long unsigned int time_value = 0;
 
 void finishTimer() {
   isTimerRunning = !isTimerRunning;
